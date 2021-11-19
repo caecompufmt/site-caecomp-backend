@@ -24,6 +24,7 @@ Route.group(() => {
   Route.post('register', 'AuthController.register')
   Route.post('login', 'AuthController.login')
   Route.post('programacao', 'ProgramacaoController')
+  Route.post('speakers', 'SpeakersController')
   Route.group(() => {
     Route.get('/', async () => {
       return { hello: 'world' }
