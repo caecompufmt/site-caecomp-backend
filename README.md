@@ -35,7 +35,7 @@ Backend do site do CAECOMP UFMT
 ### 🤔 Pré-requisitos
 
 Para conseguir utilizar a aplicação sem nenhum problema é necessário ter:
-
+- Node versão 14 ou superior.
 - Ter em sua máquina o **<a href="https://www.npmjs.com/" target="_blank" rel="noopener">NPM</a>** ou **<a href="https://yarnpkg.com/" target="_blank" rel="noopener">Yarn</a>** para o gerenciamento dos pacotes da aplicação
 - Ter o **<a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>** para facilitar o setup do banco de dados
 - E não menos importante, o **<a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a>** para clonar o repositório em seu computador
@@ -61,31 +61,21 @@ Primeiro clone o repositório em seu computador, por meio do terminal utilizando
 
 3. Configurar as variáveis de ambiente
 
-Crie um arquivo chamado de '.env' copiando as informações existentes no arquivo '.env.example', será necessário alterar o valor do item 'DB_VOLUME'
-para um caminho de uma pasta criada onde você achar melhor.
+Crie um arquivo chamado de '.env' copiando as informações existentes no arquivo '.env.example'.
 
-- Exemplo no windows:
-DB_VOLUME="/C/Users/Public/database"
 
-- Exemplo no Linux/MacOS:
-DB_VOLUME="/Users/usuario/Desktop/database"
-
-Esse caminho servirá para persistir os valores no banco de dados do docker
-
-4. Inicar o docker da aplicação e rodar as migrations
-
-```sh
-  # Comando para iniciar o docker
-  $ docker-compose up -d
-  # Comando para rodar as migrations 
-  $ node ace migration:run
-```
-
-5. Inicar a aplicação
+4. Iniciar docker da aplicação, este ja iniciará o mysql + aplicação
 
 ```sh
   # Comando para iniciar a aplicação em modo de desenvolvimento
-  $ yarn dev
+  $ docker-compose up --build
+```
+5. Rode a migrations para subir as tabelas, é possível fazer isso usando:
+
+```sh
+  $ node ace migration:run
+  # Ou use o script que limpa o banco e roda as migrations
+  $ npm run db:clear
 ```
 
 ---
