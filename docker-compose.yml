@@ -1,12 +1,35 @@
 version: '3.7'
 services:
+  app:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: caecomp-backend-app
+    working_dir: /usr/src/app
+    env_file:
+      - .env
+    depends_on:
+      database:
+        condition: service_healthy
+    ports:
+      - "3333:3333"
+    volumes:
+      - ./src:/usr/src/app/src
+    links:
+      - "database:database"
+    expose:
+      - '9237'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   database:
     env_file:
       - .env
     platform: linux/x86_64
     image: mysql:latest 
     container_name: ${APP_NAME:?err}-database
-    command: --default-authentication-plugin=mysql_native_password
+    command: 
+      - --default-authentication-plugin=mysql_native_password
+      - --default_storage_engine=InnoDB
     restart: 'on-failure'
     ports:
       - '3306:3306'
@@ -14,4 +37,35 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:?err}
       MYSQL_DATABASE: ${DB_NAME}
     volumes:
-      - ${DB_VOLUME}:/var/lib/mysql
+      - database:/var/lib/mysql
+    healthcheck:
+        test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-ppassword", "-uuser"]
+        interval: 10s
+        timeout: 20s
+        retries: 10
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: caecomp-phpmyadmin
+    links:
+      - database
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8084:80
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+volumes:
+    database:
+    # - /usr/src/app/node_modules
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.11.1.0/24
+    name: caecomp-net
