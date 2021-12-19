@@ -82,7 +82,7 @@ Crie um arquivo chamado de '.env' copiando as informações existentes no arquiv
 6. Use o [phpmyadmin](http://localhost:8084) para visualizar e manipular o banco mysql.
 
 ```sh
-  http://localhost:8084 
+  http://localhost:8084 # Use o user e senha do .env
 ```
 
 ---
