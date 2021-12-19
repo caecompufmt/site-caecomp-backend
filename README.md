@@ -35,6 +35,7 @@ Backend do site do CAECOMP UFMT
 ### 🤔 Pré-requisitos
 
 Para conseguir utilizar a aplicação sem nenhum problema é necessário ter:
+
 - Node versão 14 ou superior.
 - Ter em sua máquina o **<a href="https://www.npmjs.com/" target="_blank" rel="noopener">NPM</a>** ou **<a href="https://yarnpkg.com/" target="_blank" rel="noopener">Yarn</a>** para o gerenciamento dos pacotes da aplicação
 - Ter o **<a href="https://www.docker.com/" target="_blank" rel="noopener">Docker</a>** para facilitar o setup do banco de dados
@@ -63,19 +64,25 @@ Primeiro clone o repositório em seu computador, por meio do terminal utilizando
 
 Crie um arquivo chamado de '.env' copiando as informações existentes no arquivo '.env.example'.
 
-
 4. Iniciar docker da aplicação, este ja iniciará o mysql + aplicação
 
 ```sh
   # Comando para iniciar a aplicação em modo de desenvolvimento
   $ docker-compose up --build
 ```
+
 5. Rode a migrations para subir as tabelas, é possível fazer isso usando:
 
 ```sh
   $ node ace migration:run
   # Ou use o script que limpa o banco e roda as migrations
   $ npm run db:clear
+```
+
+6. Use o [phpmyadmin](http://localhost:8084) para visualizar e manipular o banco mysql.
+
+```sh
+  http://localhost:8084 
 ```
 
 ---
