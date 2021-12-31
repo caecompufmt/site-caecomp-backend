@@ -13,8 +13,6 @@ describe('User', () => {
         'Content-Type': 'application/json',
       },
     })
-    const test = await client.get()
-    console.log('🚀 ~ file: auth.test.ts ~ line 17 ~ before ~ test', test.data)
   })
 
   step('User login', async function () {
