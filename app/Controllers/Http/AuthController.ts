@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import User from 'App/Models/User'
+import Logger from '@ioc:Adonis/Core/Logger'
 
 export default class AuthController {
   public async login({ request, auth }: HttpContextContract) {
@@ -23,6 +24,7 @@ export default class AuthController {
         schema: newUserSchema,
       })
 
+      Logger.info(`Registering user ${payload.first_name}...`)
       const email = payload.email
       const password = payload.password
       const firstName = payload.first_name
@@ -32,13 +34,14 @@ export default class AuthController {
       newUser.password = password
       newUser.firstName = firstName
       await newUser.save()
-
+      Logger.info('User created.')
       const token = await auth.use('api').login(newUser, {
         expiresIn: '10 days',
       })
 
       return token.toJSON()
     } catch (error) {
+      Logger.error(error)
       if (error.errno === 1062) {
         return response.unprocessableEntity('e-mail already registered')
       }

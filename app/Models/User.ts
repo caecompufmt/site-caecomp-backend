@@ -30,7 +30,13 @@ export default class User extends BaseModel {
   @beforeSave()
   public static async hashPassword(user: User) {
     if (user.$dirty.password) {
-      user.password = await Hash.make(user.password)
+      const hashedPassword = await Hash.use('bcrypt').make(user.password)
+      if (hashedPassword) {
+        user.password = hashedPassword
+      }
+      else {
+        throw new Error("HashError")
+      }
     }
   }
 }

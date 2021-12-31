@@ -1,0 +1,1 @@
+docker exec -t caecomp-backend-app sh -c 'node ace list:routes'
