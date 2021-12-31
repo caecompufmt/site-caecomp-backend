@@ -8,6 +8,14 @@
     "build"
   ],
   "compilerOptions": {
+    "module": "CommonJS",
+    "baseUrl": "src",
+    "target": "ES2021",
+    "module": "commonjs",
+    "removeComments": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "outDir": "build",
     "rootDir": "./",
     "sourceMap": true,
