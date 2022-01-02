@@ -1,5 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Schedule from '../../Models/Schedule'
+
 export default class SchedulesController {
   public async index({ response }: HttpContextContract) {
     const schedules = await Schedule.all()
