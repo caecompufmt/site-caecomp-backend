@@ -15,14 +15,33 @@ describe('User', () => {
     })
   })
 
-  step('User login', async function () {
+  step('User registration', async function () {
     const userPayload = {
       email: faker.internet.email().toLowerCase(),
-      first_name: 'user name',
+      first_name: `${faker.name.firstName()}`,
       password: '123456@Cc',
     }
     const response = await client.post('api/register', userPayload)
     expect(response.data.type).to.equal('bearer')
+    expect(response.status).to.equal(200)
+  })
+  step('User login', async function () {
+    // Registering user
+    const userPayload = {
+      email: faker.internet.email().toLowerCase(),
+      first_name: `${faker.name.firstName()}`,
+      password: '123456@Cc',
+    }
+    let response = await client.post('api/register', userPayload)
+    expect(response.data.type).to.equal('bearer')
+    expect(response.status).to.equal(200)
+    // Logging user
+    const loginPayload = {
+      email: userPayload.email,
+      password: userPayload.password,
+      token: response.data.token
+    }
+    response = await client.post('api/login', loginPayload)
     expect(response.status).to.equal(200)
   })
 })
