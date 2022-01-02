@@ -38,8 +38,7 @@ describe('User', () => {
     // Logging user
     const loginPayload = {
       email: userPayload.email,
-      password: userPayload.password,
-      token: response.data.token
+      password: userPayload.password
     }
     response = await client.post('api/login', loginPayload)
     expect(response.status).to.equal(200)

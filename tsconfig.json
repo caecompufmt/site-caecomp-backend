@@ -8,6 +8,7 @@
     "build"
   ],
   "compilerOptions": {
+    "noUnusedLocals": false,
     "module": "CommonJS",
     "baseUrl": "src",
     "target": "ES2021",
