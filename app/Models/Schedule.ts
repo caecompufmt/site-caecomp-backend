@@ -19,7 +19,7 @@ export default class Schedule extends BaseModel {
   public endHour: string
 
   @column()
-  public date: string
+  public date: Date
 
   @column()
   public vacancies: number

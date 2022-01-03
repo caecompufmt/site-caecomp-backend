@@ -1,5 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Schedule from 'App/Models/Schedule'
+import Schedule from '../../Models/Schedule'
 
 export default class SchedulesController {
   public async index({ response }: HttpContextContract) {
@@ -15,7 +15,8 @@ export default class SchedulesController {
       'start_hour',
       'end_hour',
       'date',
-      'vagas',
+      'vacancies',
+      'description',
       'link',
     ])
 

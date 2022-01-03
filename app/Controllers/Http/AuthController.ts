@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
-import User from 'App/Models/User'
+import User from '../../Models/User'
 import Logger from '@ioc:Adonis/Core/Logger'
 
 export default class AuthController {
